@@ -10,7 +10,6 @@
 # /_____//_/  |_|/_/    /_/  /_____//_____/ /____//_/ /_//___//_/
 # """)
 
-
 import time
 
 skip_intro = 1
@@ -24,11 +23,14 @@ elif skip_intro == 1:
     QUICK_PAUSE = 0
     QUARTER_SECOND = 0
 
+
 def main():
     intro_animation()
     game_rules = menu()
-    p1_fleet, p1_attack_grid, p2_fleet, p2_attack_grid = initiate_battlespace()
+    # Empty grids are generated
+    p1_fleet, p1_attack_grid, p2_fleet, p2_attack_grid = initiate_battle_space()
     start_game(game_rules, p1_fleet, p1_attack_grid, p2_fleet, p2_attack_grid)
+
 
 def intro_animation():
     # simple animation using time.sleep for delaying printing strings
@@ -75,6 +77,11 @@ def intro_animation():
 
 
 def menu():
+    print(chr(8779))  # sea waves
+    print(chr(127754))  # another wave
+    print(chr(10060))  # good cross
+    print(chr(9773))
+
     print("For the game rules type HELP.")
     print("To dive straight in hit ENTER.")
     menu_selection = str(input(">>> ")).upper()
@@ -101,110 +108,167 @@ def menu():
         except ValueError:
             print("Enter '1' or '2'")
     # if game_type == 1:
-        # difficulty = 0
-        # while difficulty != 1 or 2 or 3:
-        #     difficulty = int(input("Enter difficulty:"))
+    # difficulty = 0
+    # while difficulty != 1 or 2 or 3:
+    #     difficulty = int(input("Enter difficulty:"))
     return game_type
 
-def initiate_battlespace():
-    p1_fleet = [["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"]]
 
-    p1_attack_grid = [["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"]]
+def initiate_battle_space():
+    empty_ten_by_ten = [
+        [["carrier_vertical", 1], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0],  # Row 1
+         ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0]],
+        [["carrier_vertical", 2], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0],  # Row 2
+         ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0]],
+        [["carrier_vertical", 3], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0],  # Row 3
+         ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0]],
+        [["carrier_vertical", 4], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0],  # Row 4
+         ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0]],
+        [["carrier_vertical", 5], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0],  # Row 5
+         ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0]],
+        [["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0],  # Row 6
+         ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0]],
+        [["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0],  # Row 7
+         ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0]],
+        [["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0],  # Row 8
+         ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0]],
+        [["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0],  # Row 9
+         ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0]],
+        [["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0],  # Row 10
+         ["Empty", 0], ["Empty", 0], ["Empty", 0], ["Empty", 0]]]
 
-    p2_fleet = [["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                        ["Empty"], ["Empty"]]
+    return empty_ten_by_ten, empty_ten_by_ten, empty_ten_by_ten, empty_ten_by_ten
 
-    p2_attack_grid = [["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"], ["Empty"],
-                          ["Empty"], ["Empty"]]
-    return p1_fleet, p1_attack_grid, p2_fleet, p2_attack_grid
+
+# Ships will be saved as separate horizontal and vertical versions. Each of these will contain a list of length
+# equal to the length of the ship (eg carrier_list = 5 values), within each of these squares there is a dictionary
+# which contains the 3 lines of each ship section.
 
 
 def start_game(game_rules, p1_fleet, p1_attack_grid, p2_fleet, p2_attack_grid):
-    # ....AND THE REST. LOL
+    print_board(p1_fleet, p2_attack_grid)
+    # Players will place one end at a time. This will decide if horizontal/vertical
+    # Player 1 place boats
+    # Place Carrier (5 squares long)
+    carrier_end_coord_one = input("Place first end of carrier: ")
+
+    if game_rules == 2:
+        # Player 2 places boats
+        pass
+    elif game_rules == 1:
+        # AI player places boats
+        pass
 
 
+def print_board(p1_squares, p2_attack_grid):
+    row = 0  # Starting row
+    sps = 12  # sps = number of spaces (sps) in each column (not being used currently)
+    # reversed_number_rows = p1_fleet
+    # reversed_number_rows.reverse()
+
+    # print the letters and top on grid
+    ltrs = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+    print(f"  {ltrs[0]:^12}{ltrs[1]:^12}{ltrs[2]:^12}{ltrs[3]:^12}{ltrs[4]:^12}{ltrs[5]:^12}{ltrs[6]:^12}{ltrs[7]:^12}"
+          f"{ltrs[8]:^12}{ltrs[9]:^12}")
+    print("_", "|_         _" * 10, "|_", sep="")
+
+    current_grid = p1_squares
+
+    for p1_square in p1_squares:
+        # Print 3 lines that from each row (1-10). Lines are printed across letters (A-J)
+        print_first_line(p1_square, p1_squares, row)
+        print_second_line(p1_square, p1_squares, row)
+        print_third_line(p1_square, p1_squares, row)
+        row += 1
 
 
-# These are taken straight from chess program but will function the same
-# They change player strings into list indices and back ("a1" -> [0][0] and ([0][0] -> "a1")
-# CHANGES COORDINATES FROM LETTER NUMBER TO LIST INDICES (ADDRESSES OF THE SQUARES)
+# PRINT FIRST LINE
+def print_first_line(p1_square, p1_squares, row):
+    line_number = 1
+    empty_first_line = "|           "
+    full_line = []
+    for column in range(0, 10):
+        current_coordinate = [row, column]
+        if p1_square[column][0] == "Empty":
+            # print(empty_first_line, "end=")
+            full_line.append(empty_first_line)
+        else:
+            # print(ship_graphics_retriever(reversed_number_rows, current_coordinate, line_number))
+            full_line.append(ship_graphics_retriever(p1_squares, current_coordinate, line_number))
+    print(" ", "".join(full_line), "|", sep="")
+    return
+
+
+# PRINT SECOND LINE
+def print_second_line(p1_square, p1_squares, row):
+    line_number = 2
+    empty_second_line = "            "
+    full_line = []
+    for column in range(0, 10):
+        current_coordinate = [row, column]
+        if p1_square[column][0] == "Empty":
+            # print(empty_first_line, "end=")
+            full_line.append(empty_second_line)
+        else:
+            # print(ship_graphics_retriever(reversed_number_rows, current_coordinate, line_number))
+            full_line.append(ship_graphics_retriever(p1_squares, current_coordinate, line_number))
+    print(" ", "".join(full_line), sep="")
+    return
+
+
+# PRINT THIRD LINE
+def print_third_line(p1_square, p1_squares, row):
+    line_number = 3
+    empty_third_line = "|_         _"
+    full_line = []
+    for column in range(0, 10):
+        current_coordinate = [row, column]
+        if p1_square[column][0] == "Empty":
+            # print(empty_first_line, "end=")
+            full_line.append(empty_third_line)
+        else:
+            # print(ship_graphics_retriever(reversed_number_rows, current_coordinate, line_number))
+            full_line.append(ship_graphics_retriever(p1_squares, current_coordinate, line_number))
+    print(" ", "".join(full_line), "|_", sep="")
+    return
+
+
+def ship_graphics_retriever(reversed_number_rows, cc, line_number):
+    # cc = current_coordinate
+    carrier_vertical = [{1: "|    /^\    ", 2: "    / w&\   ", 3: "|_ |     | _"},
+                        {1: "|  | ||| |  ", 2: "   | (_) |  ", 3: "|_ |/===\| _"},
+                        {1: "|  ||___Z|  ", 2: "   ||(*)||  ", 3: "|_ |[(_)|| _"},
+                        {1: "|  | ||| |  ", 2: "   |8---8|  ", 3: "|_ |[(_)|| _"},
+                        {1: "|  | ||| |  ", 2: "   | (H) |  ", 3: "|_ |_____| _"}]
+
+    # Checks if the vertical carrier sprite is present in the square being printed
+    if "carrier_vertical" in reversed_number_rows[cc[0]][cc[1]][0]:
+        # Check the second value in the square to find what section of the carrier it is
+        # (x coord, y coord, second value)
+        if reversed_number_rows[cc[0]][cc[1]][1] == 1:
+            ship_sprite = carrier_vertical[0][line_number]
+            return ship_sprite
+        elif reversed_number_rows[cc[0]][cc[1]][1] == 2:
+            ship_sprite = carrier_vertical[1][line_number]
+            return ship_sprite
+        elif reversed_number_rows[cc[0]][cc[1]][1] == 3:
+            ship_sprite = carrier_vertical[2][line_number]
+            return ship_sprite
+        elif reversed_number_rows[cc[0]][cc[1]][1] == 4:
+            ship_sprite = carrier_vertical[3][line_number]
+            return ship_sprite
+        elif reversed_number_rows[cc[0]][cc[1]][1] == 5:
+            ship_sprite = carrier_vertical[4][line_number]
+            return ship_sprite
+
+
 def encode_coordinates(player_selection):
+    # These are taken straight from chess program but will function the same
+    # They change player strings into list indices and back ("a1" -> [0][0] and ([0][0] -> "a1")
+    # CHANGES COORDINATES FROM LETTER NUMBER TO LIST INDICES (ADDRESSES OF THE SQUARES)
     letter_number_coord = [int(player_selection[1]) - 1, ord(player_selection[0].lower()) - 97]
     return letter_number_coord
+
 
 # CHANGES LIST INDICES BACK TO LETTER NUMBER COORDINATES
 def decode_coordinates(number_letter_coord):
@@ -212,5 +276,4 @@ def decode_coordinates(number_letter_coord):
     return non_list_coords
 
 
-
-main() # <-- This is the game running
+main()  # <-- This is the game running
