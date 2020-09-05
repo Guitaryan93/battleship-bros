@@ -176,71 +176,51 @@ def print_board(p1_squares, p2_attack_grid):
 
     for p1_square in p1_squares:
         # Print 3 lines that from each row (1-10). Lines are printed across letters (A-J)
-        print_first_line(p1_square, p1_squares, row)
-        print_second_line(p1_square, p1_squares, row)
-        print_third_line(p1_square, p1_squares, row)
+        line_number = 1
+        print_line(p1_square, p1_squares, row, line_number)
+        line_number += 1
+        print_line(p1_square, p1_squares, row, line_number)
+        line_number += 1
+        print_line(p1_square, p1_squares, row, line_number)
         row += 1
 
 
-# PRINT FIRST LINE
-def print_first_line(p1_square, p1_squares, row):
-    line_number = 1
-    empty_first_line = "|           "
+# PRINT LINE
+def print_line(p1_square, p1_squares, row, line_number):
+    if line_number == 1:
+        empty_line = "|           "
+    elif line_number == 2:
+        empty_line = "            "
+    elif line_number == 3:
+        empty_line = "|_         _"
     full_line = []
     for column in range(0, 10):
         current_coordinate = [row, column]
         if p1_square[column][0] == "Empty":
-            # print(empty_first_line, "end=")
-            full_line.append(empty_first_line)
+            full_line.append(empty_line)
         else:
-            # print(ship_graphics_retriever(reversed_number_rows, current_coordinate, line_number))
             full_line.append(ship_graphics_retriever(p1_squares, current_coordinate, line_number))
-    print(" ", "".join(full_line), "|", sep="")
-    return
-
-
-# PRINT SECOND LINE
-def print_second_line(p1_square, p1_squares, row):
-    line_number = 2
-    empty_second_line = "            "
-    full_line = []
-    for column in range(0, 10):
-        current_coordinate = [row, column]
-        if p1_square[column][0] == "Empty":
-            # print(empty_first_line, "end=")
-            full_line.append(empty_second_line)
-        else:
-            # print(ship_graphics_retriever(reversed_number_rows, current_coordinate, line_number))
-            full_line.append(ship_graphics_retriever(p1_squares, current_coordinate, line_number))
-    print(" ", "".join(full_line), sep="")
-    return
-
-
-# PRINT THIRD LINE
-def print_third_line(p1_square, p1_squares, row):
-    line_number = 3
-    empty_third_line = "|_         _"
-    full_line = []
-    for column in range(0, 10):
-        current_coordinate = [row, column]
-        if p1_square[column][0] == "Empty":
-            # print(empty_first_line, "end=")
-            full_line.append(empty_third_line)
-        else:
-            # print(ship_graphics_retriever(reversed_number_rows, current_coordinate, line_number))
-            full_line.append(ship_graphics_retriever(p1_squares, current_coordinate, line_number))
-    print(" ", "".join(full_line), "|_", sep="")
+    if line_number == 1:
+        print(" ", "".join(full_line), "|", sep="")
+    elif line_number == 2:
+        print(" ", "".join(full_line), sep="")
+    elif line_number == 3:
+        print("_", "".join(full_line), "|_", sep="")
     return
 
 
 def ship_graphics_retriever(reversed_number_rows, cc, line_number):
     # cc = current_coordinate
+
+    # Ship graphics here. Number of rows in variable indicates length of sprite
     carrier_vertical = [{1: "|    /^\    ", 2: "    / w&\   ", 3: "|_ |     | _"},
                         {1: "|  | ||| |  ", 2: "   | (_) |  ", 3: "|_ |/===\| _"},
                         {1: "|  ||___Z|  ", 2: "   ||(*)||  ", 3: "|_ |[(_)|| _"},
                         {1: "|  | ||| |  ", 2: "   |8---8|  ", 3: "|_ |[(_)|| _"},
                         {1: "|  | ||| |  ", 2: "   | (H) |  ", 3: "|_ |_____| _"}]
 
+    # Assigns the graphics based on what is present in the currently selected coordinate
+    # Each ship will have a vertical and horizontal version
     # Checks if the vertical carrier sprite is present in the square being printed
     if "carrier_vertical" in reversed_number_rows[cc[0]][cc[1]][0]:
         # Check the second value in the square to find what section of the carrier it is
