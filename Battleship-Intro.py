@@ -12,7 +12,7 @@
 
 import time
 
-skip_intro = 1
+skip_intro = 0
 if skip_intro == 0:
     # sets the seconds argument for the time.sleep function
     HALF_SECOND = 0.5
@@ -209,7 +209,7 @@ def print_line(p1_square, p1_squares, row, line_number):
     return
 
 
-def ship_graphics_retriever(reversed_number_rows, cc, line_number):
+def ship_graphics_retriever(p1_squares, cc, line_number):
     # cc = current_coordinate
 
     # Ship graphics here. Number of rows in variable indicates length of sprite
@@ -222,22 +222,22 @@ def ship_graphics_retriever(reversed_number_rows, cc, line_number):
     # Assigns the graphics based on what is present in the currently selected coordinate
     # Each ship will have a vertical and horizontal version
     # Checks if the vertical carrier sprite is present in the square being printed
-    if "carrier_vertical" in reversed_number_rows[cc[0]][cc[1]][0]:
+    if "carrier_vertical" in p1_squares[cc[0]][cc[1]][0]:
         # Check the second value in the square to find what section of the carrier it is
         # (x coord, y coord, second value)
-        if reversed_number_rows[cc[0]][cc[1]][1] == 1:
+        if p1_squares[cc[0]][cc[1]][1] == 1:
             ship_sprite = carrier_vertical[0][line_number]
             return ship_sprite
-        elif reversed_number_rows[cc[0]][cc[1]][1] == 2:
+        elif p1_squares[cc[0]][cc[1]][1] == 2:
             ship_sprite = carrier_vertical[1][line_number]
             return ship_sprite
-        elif reversed_number_rows[cc[0]][cc[1]][1] == 3:
+        elif p1_squares[cc[0]][cc[1]][1] == 3:
             ship_sprite = carrier_vertical[2][line_number]
             return ship_sprite
-        elif reversed_number_rows[cc[0]][cc[1]][1] == 4:
+        elif p1_squares[cc[0]][cc[1]][1] == 4:
             ship_sprite = carrier_vertical[3][line_number]
             return ship_sprite
-        elif reversed_number_rows[cc[0]][cc[1]][1] == 5:
+        elif p1_squares[cc[0]][cc[1]][1] == 5:
             ship_sprite = carrier_vertical[4][line_number]
             return ship_sprite
 
