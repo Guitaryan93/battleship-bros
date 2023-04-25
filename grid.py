@@ -4,8 +4,29 @@ import re
 from colorama import *
 
 
+def validate_coordinates(coords):
+    valid_coords = False
+    if re.fullmatch("[a-j][0-9]", coords) or re.fullmatch("[0-9][a-j]", coords):
+        valid_coords = True
+
+    return valid_coords
+
+
+def format_input(player_input):
+    ''' Change the player input to match the gridcells - Letter,Number - F5'''
+    formatted_input = ""
+    if re.fullmatch("[0-9][a-j]", player_input):
+        for char in player_input:
+            formatted_input = char + formatted_input
+    else:
+        formatted_input = player_input
+
+    return formatted_input
+
+
 class Grid:
-    def __init__(self):
+    def __init__(self, player):
+        self.player = player
         self.x_labels = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
         self.y_labels = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         self.width = 11
@@ -16,7 +37,7 @@ class Grid:
     def _build_grid(self):
         for y in range(len(self.y_labels)):
             for x in range(len(self.x_labels)):
-                cell = Gridcell(self.x_labels[x], self.y_labels[y])
+                cell = Gridcell(self, self.x_labels[x], self.y_labels[y])
                 self.cells.append(cell)
 
     def draw_grid(self):
@@ -41,24 +62,6 @@ class Grid:
 
         print()     # End with a newline for easier reading on-screen
 
-    def validate_coordinates(self, coords):
-        valid_coords = False
-        if re.fullmatch("[a-j][0-9]", coords) or re.fullmatch("[0-9][a-j]", coords):
-            valid_coords = True
-
-        return valid_coords
-
-    def format_input(self, player_input):
-        ''' Change the player input to match the gridcells - Letter,Number - F5'''
-        formatted_input = ""
-        if re.fullmatch("[0-9][a-j]", player_input):
-            for char in player_input:
-                formatted_input = char + formatted_input
-        else:
-            formatted_input = player_input
-
-        return formatted_input
-
     def search_grid(self, coords):
         ''' Search through the grid cells to find and return one matching the player input. '''
         for cell in self.cells:
@@ -69,27 +72,34 @@ class Grid:
 
 
 class Gridcell:
-    def __init__(self, x, y):
+    def __init__(self, grid, x, y):
+        self.grid = grid
         self.coords = [x, y]
-        self.coords_string = f"{self.coords[0]}{self.coords[1]}"
+        self.coords_string = f"{self.coords[0].lower()}{self.coords[1]}"
         self.prev_selected = False
         self.has_ship = False
-        self.is_hit = False
         self.char = " . "
+        self.color_cell(Fore.CYAN)
 
-    def update_cell(self):
+    def cell_feedback(self):
         ''' Check and update the cell depending on whether it has been selected before,
             it contains a ship, or if it is a missed shot '''
         if self.prev_selected:
-            msg = "This coordinate has been previously selected, please try again or type \"help\"."
+            if self.grid.player.is_human:
+                msg = "This coordinate has been previously selected, please try again or type \"help\"."
+            else:
+                msg = ""
+            status = "error"
         elif self.has_ship:
             self.prev_selected = True
             msg = "HIT!"
+            status = "hit"
         else:
             self.prev_selected = True
             msg = "Missed..."
+            status = "miss"
 
-        return msg
+        return msg, status
 
     def change_char(self, new_char):
         self.char = new_char
