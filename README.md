@@ -24,3 +24,6 @@ ship_choice = input("Choose vessel to place: ")   "Carrier"
 ship_coordinate = input("Choose a coordinate to place the ", ship_choice, ": ")    "B7"
 ship_orientation = input("Place vertical or horizontal?(v/h): ")    "h"
 player_carrier = [B7, C7, D7, E7, F7]
+
+### Test commit through VIM...
+
